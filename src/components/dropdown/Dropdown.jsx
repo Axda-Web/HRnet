@@ -4,12 +4,16 @@ import { Select, MenuItem, InputLabel, FormControl } from '@mui/material'
 import states from '../../data/stateList'
 
 
-const Dropdown = ({name}) => {
+const Dropdown = ({dropdownName, setEmployeeData, name}) => {
 
   const [value, setValue] = useState('');
 
   const handleChange = e => {
     setValue(e.target.value);
+    setEmployeeData( prevState => ({
+      ...prevState,
+      [name]: e.target.value
+    }))
   };
 
   const departments = [{
@@ -30,18 +34,18 @@ const Dropdown = ({name}) => {
     }
   ]
 
-  const data = name === 'State' ? states : departments
+  const data = dropdownName === 'State' ? states : departments
 
 
   return (
     <StyledDropdown>
       <FormControl fullWidth>
-        <InputLabel id={`${name}-select-label`}>{name}</InputLabel>
+        <InputLabel id={`${dropdownName}-select-label`}>{dropdownName}</InputLabel>
         <Select
-          labelId={`${name}-select-label`}
-          id={`${name}-select`}
+          labelId={`${dropdownName}-select-label`}
+          id={`${dropdownName}-select`}
           value={value}
-          label={name}
+          label={dropdownName}
           onChange={handleChange}
         >
           {data.map( (item, index) => <MenuItem key={index} value={item.name}>{item.name}</MenuItem> )}

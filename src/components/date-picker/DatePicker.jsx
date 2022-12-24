@@ -3,13 +3,13 @@ import StyledDatePicker from './DatePicker.styled'
 
 import { TextField } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers'
-import { Moment } from 'moment';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { DatePicker as Picker } from '@mui/x-date-pickers';
 
-const DatePicker = ({label}) => {
+const DatePicker = ({label, name, setEmployeeData}) => {
 
   const [value, setValue] = useState(null);
+  // console.log(typeof (value._d))
 
 
   return (
@@ -20,6 +20,14 @@ const DatePicker = ({label}) => {
         value={value}
         onChange={(newValue) => {
           setValue(newValue);
+          setEmployeeData( prevState => {
+            const date = new Date(newValue)
+
+            return {
+              ...prevState,
+              [name]: date.toLocaleDateString()
+            }
+          })
         }}
         renderInput={(params) => <TextField {...params} fullWidth />}
       />
