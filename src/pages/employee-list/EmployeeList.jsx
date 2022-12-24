@@ -14,7 +14,7 @@ const EmployeeList = () => {
   return (
     <StyledEmployeeList>
       <Table />
-      <Link component={RouterLink} to="/" className="link" fontSize="1.2rem" marginTop="3rem">
+      <Link component={RouterLink} to="/" className="link" fontSize="1.2rem" marginTop="3rem" marginBottom="3rem">
         Home
       </Link>
     </StyledEmployeeList>

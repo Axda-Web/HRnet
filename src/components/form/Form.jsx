@@ -59,6 +59,7 @@ const Form = () => {
 
   return (
       <StyledForm onSubmit={handleSubmit}>
+        <Typography fontSize="1.3rem">Employee</Typography>
         <TextField
           name="firstName"
           value={employeeData.firstName}
