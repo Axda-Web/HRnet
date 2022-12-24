@@ -2,13 +2,15 @@ import React from 'react'
 import StyledTable from './Table.styled'
 import { DataGrid } from '@mui/x-data-grid';
 
+import { useSelector } from "react-redux";
+import { selectEmployeesData } from "../../features/employees-slice";
+
 const Table = () => {
 
-  const rows = [
-    { id: 1, firstName: 'Alyx', lastName: 'DARENNE', startDate: '01/09/2022', department: 'Engineering', dateOfBirth: '17/02/1990', street: '1 B Chemin de la Terrasse', city: 'Toulouse', state: 'NY', zipCode: '10001' },
-    { id: 2, firstName: 'Julien', lastName: 'SUBRA', startDate: '01/09/2022', department: 'Marketing', dateOfBirth: '17/02/1990', street: '1 B Chemin de la Terrasse', city: 'Toulouse', state: 'NY', zipCode: '10001' },
-    { id: 3, firstName: 'Greg', lastName: 'HYPPOLYTE', startDate: '01/09/2022', department: 'Marketing', dateOfBirth: '17/02/1990', street: '1 B Chemin de la Terrasse', city: 'Toulouse', state: 'NY', zipCode: '10001' }
-  ];
+  const employeesData = useSelector(selectEmployeesData)
+  console.log('Table employees data: ', employeesData)
+
+  const rows = employeesData
   
   const columns = [
     { field: 'firstName', headerName: 'First Name', width: 150 },
