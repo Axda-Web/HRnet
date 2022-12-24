@@ -5,7 +5,7 @@ const StyledError = styled.main`
     max-width: 1200px;
     margin: 0 auto;
     height: 55vh;
-    color: #00bc77;
+    color: black;
     text-align: center;
 
     .number {
@@ -24,7 +24,7 @@ const StyledError = styled.main`
         font-size: 1rem;
         
         &:visited, &:active {
-            color: #00bc77;
+            color: #1976d2;
         }
     }
 `
