@@ -3,6 +3,7 @@ import StyledForm from "./Form.styled";
 import { TextField, Typography, Button } from "@mui/material";
 import Dropdown from "../dropdown";
 import DatePicker from '../date-picker'
+import { Modal } from '@axda/react-modal'
 
 import { v4 as uuidv4 } from 'uuid';
 
@@ -35,6 +36,32 @@ const Form = () => {
     state: '',
     zipCode: ''
   })
+
+  const [showModal, setShowModal] = useState(false);
+
+  const modalStyle = {
+      modalOverlay: {
+          background: ''
+      },
+      modalWrapper: {
+          width: '',
+          height: '',
+          boxShadow: '',
+          background: '',
+          borderRadius: '',
+          border: '',
+      },
+      modalContent: {
+          color: '',
+          background: '#FFF',
+          fontSize: '1.5rem',
+          fontWeight: '700',
+          fontFamily: 'Arial'
+      },
+      closeModalButton: {
+          color: ''
+      }
+  }
   
   useEffect( () => {
     setEmployeeData( prevState => ({
@@ -54,6 +81,7 @@ const Form = () => {
   const handleSubmit = e => {
     e.preventDefault()
     dispatch(addEmployee(employeeData))
+    setShowModal(prev => !prev)
   }
 
 
@@ -118,6 +146,9 @@ const Form = () => {
           setEmployeeData={setEmployeeData}
         />
         <Button type="submit" variant="contained" className="form-btn" size="large">Save</Button>
+        <Modal showModal={showModal} setShowModal={setShowModal} modalStyle={modalStyle}>
+            <p>Employee created!</p>
+        </Modal>
       </StyledForm>
   );
 };
