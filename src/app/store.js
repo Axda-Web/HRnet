@@ -4,6 +4,8 @@ import storage from 'redux-persist/lib/storage';
 import thunk from 'redux-thunk';
 import employeesReducer from '../features/employees-slice'
 
+// Implement Redux Store + Redux Persist to keep the data after page reloading
+
 const persistConfig = {
   key: 'root',
   storage,

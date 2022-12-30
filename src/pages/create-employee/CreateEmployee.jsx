@@ -1,11 +1,15 @@
 import React from 'react'
 import StyledCreateEmployee from './CreateEmployee.styled'
+
+// React Router import
 import { Link as RouterLink } from 'react-router-dom';
-import { Link, Typography } from '@mui/material';
 
+// Material UI imports
+import Link from '@mui/material/Link'
+import Typography from '@mui/material/Typography'
+
+// Component import
 import Form from '../../components/form'
-
-
 
 
 /**

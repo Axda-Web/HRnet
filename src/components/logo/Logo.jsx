@@ -1,9 +1,20 @@
 import React from 'react'
 import StyledLogo from './Logo.styled'
 import LogoIcon from '../../assets/logo.svg'
-import { Link } from 'react-router-dom'
-import { Typography } from '@mui/material'
 
+// React Router import
+import { Link } from 'react-router-dom'
+
+// Material UI import
+import Typography from '@mui/material/Typography'
+
+
+
+/**
+ * Logo component
+ * @component
+ * @returns {JSX.Element} 
+ */
 const Logo = () => {
   return (
     <StyledLogo>

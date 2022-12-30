@@ -1,25 +1,34 @@
 import { useState } from 'react'
-import StyledDatePicker from './DatePicker.styled'
+import PropTypes from 'prop-types'
 
-import { TextField } from '@mui/material';
-import { LocalizationProvider } from '@mui/x-date-pickers'
+// Material UI imports
+import TextField from '@mui/material/TextField';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
-import { DatePicker as Picker } from '@mui/x-date-pickers';
+import { DatePicker as Picker } from '@mui/x-date-pickers/DatePicker';
 
+
+
+/**
+ * DatePicker component
+ * @component
+ * @returns {JSX.Element} 
+ */
 const DatePicker = ({label, name, setEmployeeData}) => {
 
+  // Local state containing the choosen date
   const [value, setValue] = useState(null);
-  // console.log(typeof (value._d))
-
 
   return (
-    <StyledDatePicker>
+    <>
       <LocalizationProvider dateAdapter={AdapterMoment} >
       <Picker
         label={label}
         value={value}
         onChange={(newValue) => {
           setValue(newValue);
+
+          // Transfer the choosen date to the Form component state
           setEmployeeData( prevState => {
             const date = new Date(newValue)
 
@@ -32,8 +41,15 @@ const DatePicker = ({label, name, setEmployeeData}) => {
         renderInput={(params) => <TextField {...params} fullWidth />}
       />
       </LocalizationProvider>
-    </StyledDatePicker>
+    </>
   )
+}
+
+
+DatePicker.propTypes = {
+  label: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  setEmployeeData: PropTypes.func.isRequired
 }
 
 export default DatePicker

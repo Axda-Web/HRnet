@@ -1,15 +1,23 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import StyledForm from "./Form.styled";
-import { TextField, Typography, Button } from "@mui/material";
-import Dropdown from "../dropdown";
-import DatePicker from '../date-picker'
-import { Modal } from '@axda/react-modal'
 
+// Material UI imports
+import TextField from '@mui/material/TextField'
+import Button from '@mui/material/Button'
+import Typography from '@mui/material/Typography'
+import CircularProgress from '@mui/material/CircularProgress'
+
+// This library is used to generate random id
 import { v4 as uuidv4 } from 'uuid';
 
+// Redux imports
 import { useDispatch, useSelector } from "react-redux";
 import { addEmployee, selectEmployeesData } from "../../features/employees-slice";
 
+// Big components with lazy imports to reduce the size of the JS bundle
+const Modal = React.lazy( async () => await import ('../modal'))
+const Dropdown = React.lazy( async () => await import ('../dropdown'))
+const DatePicker = React.lazy( async () => await import ('../date-picker'))
 
 
 
@@ -20,10 +28,14 @@ import { addEmployee, selectEmployeesData } from "../../features/employees-slice
  */
 const Form = () => {
 
+  // Redux logic
   const dispatch = useDispatch()
   const employeesData = useSelector(selectEmployeesData)
 
-  
+  // Modal library state
+  const [showModal, setShowModal] = useState(false);
+
+  // Local Form state
   const [ employeeData, setEmployeeData ] = useState({
     id: uuidv4(),
     firstName: '',
@@ -37,32 +49,7 @@ const Form = () => {
     zipCode: ''
   })
 
-  const [showModal, setShowModal] = useState(false);
-
-  const modalStyle = {
-      modalOverlay: {
-          background: ''
-      },
-      modalWrapper: {
-          width: '',
-          height: '',
-          boxShadow: '',
-          background: '',
-          borderRadius: '',
-          border: '',
-      },
-      modalContent: {
-          color: '',
-          background: '#FFF',
-          fontSize: '1.5rem',
-          fontWeight: '700',
-          fontFamily: 'Arial'
-      },
-      closeModalButton: {
-          color: ''
-      }
-  }
-  
+  // Generate a new id everytime the Form state change
   useEffect( () => {
     setEmployeeData( prevState => ({
       ...prevState,
@@ -70,6 +57,7 @@ const Form = () => {
     }))
   }, [employeesData])
 
+  // Update Form state when a form input is changing
   const handleChange = e => {
     const { name, value } = e.target
     setEmployeeData( prevState => ({
@@ -78,6 +66,7 @@ const Form = () => {
     }))
   }
 
+  // Send the Form data to the Redux Store + Display the Modal when the form is submited
   const handleSubmit = e => {
     e.preventDefault()
     dispatch(addEmployee(employeeData))
@@ -102,16 +91,20 @@ const Form = () => {
           label="Last Name"
           fullWidth
         />
-        <DatePicker
-          label="Date of Birth"
-          name="dateOfBirth"
-          setEmployeeData={setEmployeeData}
+        <Suspense fallback={<CircularProgress />}>
+          <DatePicker
+            label="Date of Birth"
+            name="dateOfBirth"
+            setEmployeeData={setEmployeeData}
+            />
+        </Suspense>
+        <Suspense fallback={<CircularProgress />}>
+          <DatePicker
+            label="Start Date"
+            name="startDate"
+            setEmployeeData={setEmployeeData}
           />
-        <DatePicker
-          label="Start Date"
-          name="startDate"
-          setEmployeeData={setEmployeeData}
-        />
+        </Suspense>
         <Typography fontSize="1.3rem">Address</Typography>
         <TextField
           name="street"
@@ -127,11 +120,13 @@ const Form = () => {
           label="City"
           fullWidth
         />
-        <Dropdown
-          dropdownName="State"
-          name="state"
-          setEmployeeData={setEmployeeData}
-        />
+        <Suspense fallback={<CircularProgress />}>
+          <Dropdown
+            dropdownName="State"
+            name="state"
+            setEmployeeData={setEmployeeData}
+          />
+        </Suspense>
         <TextField
           name="zipCode"
           value={employeeData.zipCode}
@@ -140,15 +135,17 @@ const Form = () => {
           type="number"
           fullWidth
         />
-        <Dropdown
-          dropdownName="Department"
-          name="department"
-          setEmployeeData={setEmployeeData}
-        />
+        <Suspense fallback={<CircularProgress />}>
+          <Dropdown
+            dropdownName="Department"
+            name="department"
+            setEmployeeData={setEmployeeData}
+          />
+        </Suspense>
         <Button type="submit" variant="contained" className="form-btn" size="large">Save</Button>
-        <Modal showModal={showModal} setShowModal={setShowModal} modalStyle={modalStyle}>
-            <p>Employee created!</p>
-        </Modal>
+        <Suspense fallback={<CircularProgress />}>
+          <Modal showModal={showModal} setShowModal={setShowModal} />
+        </Suspense>
       </StyledForm>
   );
 };

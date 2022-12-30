@@ -1,9 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// getToken thunk
-
-
-// Login slice reducer options 
+// Employees slice reducer options 
 const options = {
     name: 'login',
     initialState: [],
@@ -15,7 +12,7 @@ const options = {
     },
 }
 
-// Login slice
+// Employees slice
 const employeesSlice = createSlice(options)
 
 // Action creators

@@ -1,17 +1,28 @@
 import React from 'react'
 import StyledTable from './Table.styled'
-import { DataGrid } from '@mui/x-data-grid';
 
+// Material UI import
+import { DataGrid } from '@mui/x-data-grid/DataGrid';
+
+// Redux imports
 import { useSelector } from "react-redux";
 import { selectEmployeesData } from "../../features/employees-slice";
 
+
+/**
+ * Table component
+ * @component
+ * @returns {JSX.Element} 
+ */
 const Table = () => {
 
+  // Get employeesData from the store
   const employeesData = useSelector(selectEmployeesData)
-  console.log('Table employees data: ', employeesData)
 
+  // Provide the data to the Table component
   const rows = employeesData
   
+  // Set the columns for the Table component
   const columns = [
     { field: 'firstName', headerName: 'First Name', width: 100 },
     { field: 'lastName', headerName: 'Last Name', width: 100 },

@@ -1,8 +1,16 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import StyledEmployeeList from './EmployeeList.styled'
-import { Link } from '@mui/material'
+
+// React Router import
 import { Link as RouterLink } from 'react-router-dom'
-import Table from '../../components/table'
+
+// Material UI imports
+import Link from '@mui/material/Link'
+import CircularProgress from '@mui/material/CircularProgress'
+
+// Big component with lazy imports to reduce the size of the JS bundle
+const Table = React.lazy( async () => await import ('../../components/table'))
+
 
 
 /**
@@ -13,7 +21,9 @@ import Table from '../../components/table'
 const EmployeeList = () => {
   return (
     <StyledEmployeeList>
-      <Table />
+      <Suspense fallback={<CircularProgress />}>
+        <Table />
+      </Suspense>
       <Link component={RouterLink} to="/" className="link" fontSize="1.2rem" marginTop="3rem" marginBottom="3rem">
         Home
       </Link>

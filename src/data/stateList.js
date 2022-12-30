@@ -1,3 +1,4 @@
+// State Dropdown options
 const states = [
     {
         "name": "Alabama",
