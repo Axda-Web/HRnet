@@ -58,4 +58,4 @@ To get started with the HRnet project, follow the steps below:
    npm start
    ```
 
-A deployed version of the HRnet project is available on Vercel at [HRnet](https://to-do-8of3pzssm-axda-web.vercel.app/).
+A deployed version of the HRnet project is available on Vercel at [HRnet](https://hrnet-theta.vercel.app/).
